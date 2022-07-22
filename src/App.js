@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-import { Route, useLocation } from 'react-router-dom';
+import { Route, Router, useLocation, Switch } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
-
+import { useSelector } from 'react-redux';
 import { AppTopbar } from './AppTopbar';
 import { AppFooter } from './AppFooter';
 import { AppMenu } from './AppMenu';
@@ -10,6 +10,9 @@ import { AppConfig } from './AppConfig';
 
 import PrimeReact from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
+
+import LandingPage from './pages/LandingPage';
+import Dashboard from './pages/Dashboard';
 
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
@@ -36,6 +39,20 @@ const App = () => {
 
     let menuClick = false;
     let mobileTopbarMenuClick = false;
+
+    const auth = useSelector((state) => state.authentication)
+    let isLoggedIn = auth.isLoggedIn;
+    const roles = auth.authorities;
+    const currentApiKeyEncoded = auth.apiKey;
+
+    useEffect(() => {
+        // first time to fetch data
+        if (currentApiKeyEncoded === undefined) {
+            setLayoutMode("overlay");
+        } else {
+            setLayoutMode("static");
+        }
+    }, [currentApiKeyEncoded]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (mobileMenuActive) {
@@ -177,7 +194,8 @@ const App = () => {
 
             <div className="layout-main-container">
                 <div className="layout-main">
-                    {/* <Route path="/" exact render={() => <Dashboard colorMode={layoutColorMode} location={location} />} /> */}
+                    <Route path="/" exact grantedAuthorities={roles} component={LandingPage} colorMode={layoutColorMode} location={location} />
+                    <Route path="/dashboard" exact grantedAuthorities={roles} component={Dashboard} colorMode={layoutColorMode} location={location} />
                 </div>
 
                 <AppFooter layoutColorMode={layoutColorMode} />

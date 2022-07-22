@@ -1,7 +1,11 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, withRouter } from 'react-router-dom';
+import { Provider } from "react-redux";
+import store from "./stateManagment/store/store";
 
-const ScrollToTop = (props) => {
+import App from './App';
+
+const ScrollToTop = () => {
 
     let location = useLocation();
 
@@ -9,7 +13,12 @@ const ScrollToTop = (props) => {
         window.scrollTo(0, 0)
     }, [location]);
 
-    return props.children;
+    switch (location.pathname) {
+        default:
+            return <Provider store={store}>
+                <App />
+            </Provider>
+    }
 }
 
 export default withRouter(ScrollToTop);
