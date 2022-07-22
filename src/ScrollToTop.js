@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { useLocation, withRouter } from 'react-router-dom';
+import { Route, useLocation, withRouter } from 'react-router-dom';
 import { Provider } from "react-redux";
 import store from "./stateManagment/store/store";
+import LoginPage from './pages/LoginPage';
 
 import App from './App';
 
@@ -14,6 +15,10 @@ const ScrollToTop = () => {
     }, [location]);
 
     switch (location.pathname) {
+        case '/login':
+            return <Provider store={store}>
+                <Route path="/login" component={LoginPage} />
+            </Provider>
         default:
             return <Provider store={store}>
                 <App />
