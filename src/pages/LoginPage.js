@@ -1,5 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+
 import classNames from 'classnames';
 
 import { addLocale } from 'primereact/api';
@@ -12,12 +14,18 @@ import { Menu } from 'primereact/menu';
 import { Ripple } from 'primereact/ripple';
 import { Toast } from 'primereact/toast';
 
+import {
+    loginAccount
+} from '../stateManagment/features/authentication/authenticationSlice';
+
 const RECAPTCHA_KEY = process.env.REACT_APP_RECAPTCHA_KEY;
 
 const LoginPage = () => {
 
     const history = useHistory();
-
+    // Access the pathname object with useLocation()
+    const pathname = useLocation().pathname;
+    const dispatch = useDispatch();
     const menu = useRef(null);
     const reCaptchaLoginRef = useRef();
     const [checked, setChecked] = useState(false);
@@ -63,10 +71,42 @@ const LoginPage = () => {
         }
     ];
 
+    const getComponent = () => {
+        switch (pathname) {
+            case '/login':
+                document.documentElement.style.fontSize = 12 + 'px';
+                break;
+            default:
+        }
+    }
+
+    useEffect(() => {
+        // first time to fetch data
+        if (pathname !== "/login") {
+        } else {
+            getComponent();
+        }
+    }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+
     const handleOnSubmitLoginSocial = async () => {
-        history.push({
-            pathname: '/dashboard'
-        });
+        const email = "examplesocial@mail.com";
+        const password = "Example1#";
+        const reCAPTCHA = "reCAPTCHA";
+        dispatch(loginAccount({ reCAPTCHA, email, password }))
+            .then((response) => {
+                let isErrorFetch = response.error !== undefined
+                if (!isErrorFetch) {
+                    history.push({
+                        pathname: '/dashboard'
+                    });
+                } else {
+                }
+            })
+            .catch(() => {
+                console.log(
+                    'No internet connection found. App is running in offline mode.'
+                );
+            });
     }
 
     return (
