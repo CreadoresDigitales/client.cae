@@ -114,7 +114,6 @@ export const AppTopbar = (props) => {
         </Fragment>
     )
 
-
     const scrollToDiv = (id) => {
         document.getElementById(id).scrollIntoView({
             behavior: 'smooth'

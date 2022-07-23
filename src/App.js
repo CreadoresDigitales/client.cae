@@ -24,6 +24,7 @@ import './assets/layout/layout.scss';
 import './App.scss';
 
 const App = () => {
+    const scale = useRef(14);
     const [layoutMode, setLayoutMode] = useState('static');
     const [layoutColorMode, setLayoutColorMode] = useState('light')
     const [inputStyle, setInputStyle] = useState('outlined');
@@ -49,6 +50,7 @@ const App = () => {
         // first time to fetch data
         if (currentApiKeyEncoded === undefined) {
             setLayoutMode("overlay");
+            document.documentElement.style.fontSize = scale.current + 'px';
         } else {
             setLayoutMode("static");
         }

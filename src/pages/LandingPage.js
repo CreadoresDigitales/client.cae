@@ -342,22 +342,22 @@ const LandingPage = () => {
                         <div className="col-12 md:col-6">
                             <div className="p-fluid formgrid grid px-4 py-8 md:px-6 lg:px-8">
                                 <div className="field col-12 lg:col-6 p-float-label mb-4">
-                                    <InputText id="firstname" type="text" className="py-3 px-2 text-lg" placeholder={"Nombre"} />
+                                    <InputText id="firstname" type="text" autoComplete="off" className="py-3 px-2 text-lg" placeholder={"Nombre"} />
                                 </div>
                                 <div className="field col-12 lg:col-6 p-float-label mb-4">
-                                    <InputText id="lastname" type="text" className="py-3 px-2 text-lg" placeholder={"Apellido"} />
+                                    <InputText id="lastname" type="text" autoComplete="off" className="py-3 px-2 text-lg" placeholder={"Apellido"} />
                                 </div>
                                 <div className="field col-12 mb-4">
-                                    <InputText id="email" type="text" className="py-3 px-2 text-lg" placeholder={"Correo electrónico"} />
+                                    <InputText id="email" type="text" autoComplete="off" className="py-3 px-2 text-lg" placeholder={"Correo electrónico"} />
                                 </div>
                                 <div className="field col-12 mb-4">
-                                    <InputText id="phone" type="text" className="py-3 px-2 text-lg" placeholder={"Número de teléfono"} />
+                                    <InputText id="phone" type="text" autoComplete="off" className="py-3 px-2 text-lg" placeholder={"Número de teléfono"} />
                                 </div>
                                 <div className="field col-12 mb-4">
-                                    <InputTextarea id="message" rows="3" autoResize className="py-3 px-2 text-lg" placeholder={"Mensage"} />
+                                    <InputTextarea id="message" rows="3" autoComplete="off" autoResize className="py-3 px-2 text-lg" placeholder={"Mensage"} />
                                 </div>
                                 <div className="col-12 text-right">
-                                    <Button type="button" label={"Enviar"} icon="pi pi-envelope" className="px-5 py-3 w-auto" />
+                                    <Button type="button" label={"Enviar"} autoComplete="off" icon="pi pi-envelope" className="px-5 py-3 w-auto" />
                                 </div>
                             </div>
                         </div>
